@@ -17,26 +17,23 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>LeetCode反转链表 | Alan</title>
-  <meta name="description" content="描述：反转一个单向链表 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null 输出: 5-&amp;gt;4-&amp;gt;3-&amp;gt;2-&amp;gt;1-&amp;gt;null   思路分析  currNode 当前正在遍历的节点(原链表头节点)prevNode 新链表节点头节点(最初新链表为空所以初始值为null)   因为每次遍历时, 都会修改当前遍历节点的">
+  <title>LeetCode交换链表中相邻的两个元素 | Alan</title>
+  <meta name="description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
 <meta name="keywords" content="算法,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode反转链表">
-<meta property="og:url" content="http://AlanWangBit.github.io/2018/11/11/leetCode-reverseLinkedlist/index.html">
+<meta property="og:title" content="LeetCode交换链表中相邻的两个元素">
+<meta property="og:url" content="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/index.html">
 <meta property="og:site_name" content="Alan">
-<meta property="og:description" content="描述：反转一个单向链表 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null 输出: 5-&amp;gt;4-&amp;gt;3-&amp;gt;2-&amp;gt;1-&amp;gt;null   思路分析  currNode 当前正在遍历的节点(原链表头节点)prevNode 新链表节点头节点(最初新链表为空所以初始值为null)   因为每次遍历时, 都会修改当前遍历节点的">
+<meta property="og:description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://alanwangbit.github.io/2018/11/11/leetCode-reverseLinkedlist/listNode.png">
-<meta property="og:image" content="http://alanwangbit.github.io/2018/11/11/leetCode-reverseLinkedlist/listNode1.png">
-<meta property="og:image" content="http://alanwangbit.github.io/2018/11/11/leetCode-reverseLinkedlist/listNode2.png">
-<meta property="og:image" content="http://alanwangbit.github.io/2018/11/11/leetCode-reverseLinkedlist/listNode3.png">
-<meta property="og:updated_time" content="2018-11-12T15:09:23.130Z">
+<meta property="og:image" content="http://alanwangbit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png">
+<meta property="og:updated_time" content="2018-11-12T15:58:27.081Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode反转链表">
-<meta name="twitter:description" content="描述：反转一个单向链表 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null 输出: 5-&amp;gt;4-&amp;gt;3-&amp;gt;2-&amp;gt;1-&amp;gt;null   思路分析  currNode 当前正在遍历的节点(原链表头节点)prevNode 新链表节点头节点(最初新链表为空所以初始值为null)   因为每次遍历时, 都会修改当前遍历节点的">
-<meta name="twitter:image" content="http://alanwangbit.github.io/2018/11/11/leetCode-reverseLinkedlist/listNode.png">
+<meta name="twitter:title" content="LeetCode交换链表中相邻的两个元素">
+<meta name="twitter:description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
+<meta name="twitter:image" content="http://alanwangbit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://AlanWangBit.github.io/2018/11/11/leetCode-reverseLinkedlist/index.html">
+  <link rel="canonical" href="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Alan" type="application/atom+xml">
   
@@ -278,14 +275,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-leetCode-reverseLinkedlist" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-LeetCodeSwapNodesInPairs" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      LeetCode反转链表
+      LeetCode交换链表中相邻的两个元素
     </h1>
   
 
@@ -293,8 +290,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/11/leetCode-reverseLinkedlist/" class="article-date">
-	  <time datetime="2018-11-11T13:43:51.000Z" itemprop="datePublished">2018-11-11</time>
+	<a href="/2018/11/12/LeetCodeSwapNodesInPairs/" class="article-date">
+	  <time datetime="2018-11-12T14:59:28.000Z" itemprop="datePublished">2018-11-12</time>
 	</a>
 </span>
         
@@ -307,7 +304,7 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/11/leetCode-reverseLinkedlist/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/12/LeetCodeSwapNodesInPairs/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
@@ -315,39 +312,21 @@
       
         <!-- MarkdownTOC autolink="true" autoanchor="false" -->
 <!-- /MarkdownTOC -->
-<p><strong>描述：反转一个单向链表</strong> <a href="https://leetcode.com/problems/reverse-linked-list" target="_blank" rel="noopener">题目地址</a><br></p>
+<p><strong>描述：Swap Nodes in Pairs</strong> <a href="https://leetcode.com/problems/swap-nodes-in-pairs" target="_blank" rel="noopener">题目地址</a><br></p>
 <p><strong>Example:</strong></p>
 <blockquote>
-<p><strong>输入:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null <br><br><strong>输出:</strong> 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;null <br></p>
+<p><strong>输入:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null<br><strong>输出:</strong> 2-&gt;1-&gt;4-&gt;3-&gt;5-&gt;null</p>
 </blockquote>
-<p><strong>思路分析</strong></p>
+<p><strong>思路分析: 如下图</strong></p>
 <blockquote>
-<p><code>currNode</code> 当前正在遍历的节点(原链表头节点)<br><code>prevNode</code> 新链表节点头节点(最初新链表为空所以初始值为null)</p>
+<p><code>curr</code> 为当前正在遍历的元素, 我们称它为 <code>a元素</code><br><code>next</code> 当前元素的后面一个元素, 我们称他为 <code>b元素</code><br><code>c</code> 元素为当前元素后面的第二个元素<br><code>prev</code> 元素为当前遍历到的元素的前一个元素, 如果当前遍历的为第一个元素，则 <code>prev=null;</code>（前面一部分链表的最后一个节点）</p>
 </blockquote>
 <blockquote>
-<p><strong>因为每次遍历时, 都会修改当前遍历节点的 <code>next</code> 所以每次修改前应该先记录当前的 <code>next</code> 即原链表修改后的头节点</strong></p>
+<p>(1), curr.next = next.next; // <code>a元素</code> 的 <code>next</code> 指向 <code>c元素</code><br>(2), next.next = curr; // <code>b元素</code> 的 <code>next</code> 指向 <code>a元素</code><br>(3), prev.next = next; // <code>prev</code> 元素指向 <code>b元素</code>(将链表前面一半的元素和后面的元素链接上)<br>(4), prev = curr; //交换之后，a元素是前面元素的最后一个元素，所以更新 <code>prev</code> 指向 <code>a元素</code><br>(5), curr = curr.next; // 下一次遍历的元素为 <code>a元素</code> 的下一个元素</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ListNode nextTemp = currNode.next;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>每一次遍历时, 只需要将 <code>currNode</code> 节点的 <code>next</code> 指向 <code>prevNode</code> 节点, 即：</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">currNode.next = prevNode;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>此时新链表前面多了一个节点, 所以需要将 <code>prevNode</code> 即：</strong></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prevNode = currNode;</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/11/11/leetCode-reverseLinkedlist/listNode.png" alt=""></p>
-<blockquote>
-</blockquote>
-<p><img src="/2018/11/11/leetCode-reverseLinkedlist/listNode1.png" alt=""></p>
-<blockquote>
-</blockquote>
-<p><img src="/2018/11/11/leetCode-reverseLinkedlist/listNode2.png" alt=""></p>
-<blockquote>
-</blockquote>
-<p><img src="/2018/11/11/leetCode-reverseLinkedlist/listNode3.png" alt=""></p>
+<p><img src="/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png" alt="listnode"></p>
 <p><strong>代码实现</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alan.leetcode;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反转链表：例如 输入 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null 输出：5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;null</span></span><br><span class="line"><span class="comment"> * leetCode: https://leetcode.com/problems/reverse-linked-list</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Alan Wang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/11/11 21:31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseLinkedList</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode listNode = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</span><br><span class="line">        ListNode head = listNode;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">            listNode.next = <span class="keyword">new</span> ListNode(i);</span><br><span class="line">            listNode = listNode.next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(curr.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println((Object) <span class="keyword">null</span>);</span><br><span class="line">        System.out.println(<span class="string">"-------------------开始反转------------------------"</span>);</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        ListNode newListNode = solution.reverseList(head);</span><br><span class="line">        curr = newListNode;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(curr.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println((Object) <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode prev = <span class="keyword">null</span>;</span><br><span class="line">        ListNode curr = head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (curr != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ListNode nextTemp = curr.next;</span><br><span class="line">            curr.next = prev;</span><br><span class="line">            prev = curr;</span><br><span class="line">            curr = nextTemp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> val) &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alan.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alan.leetcode.utils.ListNodeUtil;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Alan Wang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2018/11/12.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwapNodesInPairs</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode head = ListNodeUtil.generateListNode(<span class="number">7</span>);</span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(curr.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"null"</span>);</span><br><span class="line">        System.out.println(<span class="string">"----------------------开始交换----------------------"</span>);</span><br><span class="line">        SwapNodesInPairsSolution solution = <span class="keyword">new</span> SwapNodesInPairsSolution();</span><br><span class="line">        ListNode listNode = solution.swapPairs(head);</span><br><span class="line"></span><br><span class="line">        ListNode node = listNode;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(node.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"null"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 交换链表中相邻的两个元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SwapNodesInPairsSolution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 当前正在遍历的元素</span></span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        <span class="comment">// 当前正在遍历的元素的后一个</span></span><br><span class="line">        ListNode next, prev = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 假设链表为：prev-&gt;a-&gt;b-&gt;c-&gt;null</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span> &amp;&amp; curr.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 获取当前元素的下一个元素</span></span><br><span class="line">            next = curr.next;</span><br><span class="line">            <span class="comment">// 将a的next指向b的next</span></span><br><span class="line">            curr.next = next.next;</span><br><span class="line">            <span class="comment">// 将b的next指向a</span></span><br><span class="line">            next.next = curr;</span><br><span class="line">            <span class="comment">// 将a前面一个元素的next指向b</span></span><br><span class="line">            <span class="keyword">if</span>(prev!=<span class="keyword">null</span>) &#123;</span><br><span class="line">                prev.next = next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                head = next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// prev 指向元素a</span></span><br><span class="line">            prev = curr;</span><br><span class="line">            <span class="comment">// 元素a往后移动一位</span></span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -356,7 +335,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://AlanWangBit.github.io/2018/11/11/leetCode-reverseLinkedlist/" title="LeetCode反转链表" target="_blank" rel="external">http://AlanWangBit.github.io/2018/11/11/leetCode-reverseLinkedlist/</a>
+      <a href="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/" title="LeetCode交换链表中相邻的两个元素" target="_blank" rel="external">http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -402,13 +381,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2018/11/12/LeetCodeSwapNodesInPairs/" title="LeetCode交换链表中相邻的两个元素"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2018/11/05/JavaConcurrencyInPractice-Chapter05/" title="Java并发编程实战-第五章：基础构建模块"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/11/11/leetCode-reverseLinkedlist/" title="LeetCode反转链表"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

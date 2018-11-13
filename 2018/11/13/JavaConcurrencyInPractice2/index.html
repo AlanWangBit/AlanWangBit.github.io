@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>Java并发编程实战-第二章：线程的安全性 | Alan</title>
+  <meta name="description" content="2.1 什么是线程安全 2.2 原子性 竞态条件 示例：延迟初始化中的竞态条件 复合操作   2.3 加锁机制 内置锁 重入   2.4 用锁来保护状态 2.5 活跃性与性能    2.1 什么是线程安全定义： 当多个线程访问某个类时，这个类始终都能表现出正确的行为，则称该类是线程安全的。 无状态对象一定是线程安全的 无状态： 既不包含任何全局域，也不包含任何对其他类中域的引用。 一个无状态的">
+<meta name="keywords" content="Java,并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发编程实战-第二章：线程的安全性">
+<meta property="og:url" content="http://AlanWangBit.github.io/2018/11/13/JavaConcurrencyInPractice2/index.html">
+<meta property="og:site_name" content="Alan">
+<meta property="og:description" content="2.1 什么是线程安全 2.2 原子性 竞态条件 示例：延迟初始化中的竞态条件 复合操作   2.3 加锁机制 内置锁 重入   2.4 用锁来保护状态 2.5 活跃性与性能    2.1 什么是线程安全定义： 当多个线程访问某个类时，这个类始终都能表现出正确的行为，则称该类是线程安全的。 无状态对象一定是线程安全的 无状态： 既不包含任何全局域，也不包含任何对其他类中域的引用。 一个无状态的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-13T17:12:42.899Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java并发编程实战-第二章：线程的安全性">
+<meta name="twitter:description" content="2.1 什么是线程安全 2.2 原子性 竞态条件 示例：延迟初始化中的竞态条件 复合操作   2.3 加锁机制 内置锁 重入   2.4 用锁来保护状态 2.5 活跃性与性能    2.1 什么是线程安全定义： 当多个线程访问某个类时，这个类始终都能表现出正确的行为，则称该类是线程安全的。 无状态对象一定是线程安全的 无状态： 既不包含任何全局域，也不包含任何对其他类中域的引用。 一个无状态的">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://AlanWangBit.github.io/2018/11/13/JavaConcurrencyInPractice2/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Alan" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/alanwangbit" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Alan Wang</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">A forward programmer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索">
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech="">
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope="" itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/alanwangbit" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope="" itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!<br><br></p><p class="strong">我爱狂风和烈酒，还有孤独和自由！</p><p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技能修炼/">技能修炼</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/Hexo/" style="font-size: 13px;">Hexo</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/并发/" style="font-size: 14px;">并发</a> <a href="/tags/技能修炼/" style="font-size: 13px;">技能修炼</a> <a href="/tags/数据结构/" style="font-size: 14px;">数据结构</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2018/11/13/JavaConcurrencyInPractice2/" class="title">Java并发编程实战-第二章：线程的安全性</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-11-13T15:16:18.000Z" itemprop="datePublished">2018-11-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2018/11/12/LeetCodeSwapNodesInPairs/" class="title">LeetCode交换链表中相邻的两个元素</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-11-12T14:59:28.000Z" itemprop="datePublished">2018-11-12</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2018/11/11/leetCode-reverseLinkedlist/" class="title">LeetCode反转链表</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-11-11T13:43:51.000Z" itemprop="datePublished">2018-11-11</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2018/11/05/JavaConcurrencyInPractice-Chapter05/" class="title">Java并发编程实战-第五章：基础构建模块</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-11-05T14:08:15.000Z" itemprop="datePublished">2018-11-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2018/11/04/helloworld/" class="title">Hello World</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2018-11-04T05:03:06.000Z" itemprop="datePublished">2018-11-04</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-JavaConcurrencyInPractice2" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java并发编程实战-第二章：线程的安全性
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/11/13/JavaConcurrencyInPractice2/" class="article-date">
+	  <time datetime="2018-11-13T15:16:18.000Z" itemprop="datePublished">2018-11-13</time>
+	</a>
+</span>
+        
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Java/">Java</a>, <a class="article-tag-link" href="/tags/并发/">并发</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/13/JavaConcurrencyInPractice2/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- MarkdownTOC autolink="true" autoanchor="true" -->
+<ul>
+<li><a href="#21-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">2.1 什么是线程安全</a></li>
+<li><a href="#22-%E5%8E%9F%E5%AD%90%E6%80%A7">2.2 原子性</a><ul>
+<li><a href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">竞态条件</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%AD%E7%9A%84%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">示例：延迟初始化中的竞态条件</a></li>
+<li><a href="#%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C">复合操作</a></li>
+</ul>
+</li>
+<li><a href="#23-%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6">2.3 加锁机制</a><ul>
+<li><a href="#%E5%86%85%E7%BD%AE%E9%94%81">内置锁</a></li>
+<li><a href="#%E9%87%8D%E5%85%A5">重入</a></li>
+</ul>
+</li>
+<li><a href="#24-%E7%94%A8%E9%94%81%E6%9D%A5%E4%BF%9D%E6%8A%A4%E7%8A%B6%E6%80%81">2.4 用锁来保护状态</a></li>
+<li><a href="#25-%E6%B4%BB%E8%B7%83%E6%80%A7%E4%B8%8E%E6%80%A7%E8%83%BD">2.5 活跃性与性能</a></li>
+</ul>
+<!-- /MarkdownTOC -->
+<p><a id="21-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"></a></p>
+<h1 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h1><p><code>定义：</code> 当多个线程访问某个类时，这个类始终都能表现出正确的行为，则称该类是<code>线程安全的</code>。</p>
+<p><code>无状态对象一定是线程安全的</code></p>
+<p><code>无状态：</code> 既不包含任何全局域，也不包含任何对其他类中域的引用。</p>
+<p><strong>一个无状态的类</strong> 一个基于 <code>Servlet</code> 的因式分解服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StatelessFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse resp)</span> </span>&#123;</span><br><span class="line">        BigInteger i = extractFromRequest(req);</span><br><span class="line">        BigInteger[] factors = factor(i);</span><br><span class="line">        encodeIntoResponse(resp, factors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="22-%E5%8E%9F%E5%AD%90%E6%80%A7"></a></p>
+<h1 id="2-2-原子性"><a href="#2-2-原子性" class="headerlink" title="2.2 原子性"></a>2.2 原子性</h1><p>在上节中的因式分解服务中，添加一个计数器，用来统计处理的请求数量，代码如下：</p>
+<p><strong>这是一个线程不安全的类</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeCountingFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 计数器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> count = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse resp)</span> </span>&#123;</span><br><span class="line">        BigInteger i = extractFromRequest(req);</span><br><span class="line">        BigInteger[] factors = factor(i);</span><br><span class="line">        ++count;</span><br><span class="line">        encodeIntoResponse(resp, factors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码中是线程不安全的，首先 <code>++count</code> 是一个 <code>非原子性</code> 的操作，而是包含了三个独立的操作：<code>读取count</code> <code>修改count</code> <code>写入count</code><br>如果线程A和线程B同时都读取到count的值为0，两个线程在各自的私有内存中将只修改为1，然后又分别将1写入到主内存，那么显然丢失了一次统计</p>
+<p>这种因为多线程的执行顺序引起的不正确的情况成为 <code>竞态条件</code></p>
+<p><a id="%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6"></a></p>
+<h2 id="竞态条件"><a href="#竞态条件" class="headerlink" title="竞态条件"></a>竞态条件</h2><p>常见的竞态条件就是: <code>先检查后执行</code> 的操作, 即通过一个可能已经失效的结果来决定下一步的动作。</p>
+<p><a id="%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%AD%E7%9A%84%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6"></a></p>
+<h2 id="示例：延迟初始化中的竞态条件"><a href="#示例：延迟初始化中的竞态条件" class="headerlink" title="示例：延迟初始化中的竞态条件"></a>示例：延迟初始化中的竞态条件</h2><p><strong>这是一个非线程安全的类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyInitRace</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExpensiveObject instance = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">ExpensiveObject <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> ExpensiveObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码是无法保证 <code>正确性</code> 的，假设线程A执行if判断是得到instance==null为true，但在线程A执行new语句之前，线程B也执行if判断得到了instance==null为true，<br>那么线程A和线程B将都会执行new语句，则将会创建出两个对象。</p>
+<p><a id="%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C"></a></p>
+<h2 id="复合操作"><a href="#复合操作" class="headerlink" title="复合操作"></a>复合操作</h2><blockquote>
+<p>复合操作：包含了一组必须以原子方式执行的操作以确保线程的安全性，此处我们先使用现有的线程安全类来解决线程安全问题</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountingFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong count = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Service</span><span class="params">(ServletRequest req, ServletResponse resp)</span> </span>&#123;</span><br><span class="line">        BigInteger i = extractFromRequest(req);</span><br><span class="line">        BigInteger[] factors = factor(i);</span><br><span class="line">        count.incrementAndGet();</span><br><span class="line">        encodeIntoResponse(resp, factors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码使用 <code>AtomicLong</code> 来代替 <code>long</code> 类型，<code>AtomicLong</code> 是 <code>java.util.concurrent.atomic</code> 包中的原子变量类，用于实现数值和对象引用上的原子状态转换。<br>使用 <code>AtomicLong</code> 来修改count，能够确保所有线程对count的状态访问都是原子的，因为上述类中只有一个count状态，所以上述的类是线程安全的。</p>
+<p><a id="23-%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6"></a></p>
+<h1 id="2-3-加锁机制"><a href="#2-3-加锁机制" class="headerlink" title="2.3 加锁机制"></a>2.3 加锁机制</h1><p>上一节的 <code>CountingFactorizer</code> 类中只有一个状态，所以使用 <code>AtomicLong</code> 修改状态就可以保证整个类的线程安全，但是，如果类中增加一种或几种状态，是否可以通过线程安全类来修改所有的状态就能保证类的线程安全呢？？？</p>
+<p>假如，在我们因式分解的例子中，需要添加一种缓存机制，如果连续的两个请求时对同一个数进行因式分解，则直接使用上一次计算的结果，所以需要保存上一次因式分解的数值，和计算结果</p>
+<p><strong>线程不安全的代码演示</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnsafeCachingFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 上一次因式分解的数值</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> AtomicReference&lt;BigInteger&gt; lastNumber = <span class="keyword">new</span> AtomicReference&lt;&gt;();</span><br><span class="line">	<span class="comment">// 上一次因式分解的结果</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> AtomicReference&lt;BigInteger[]&gt; lastFactors = <span class="keyword">new</span> AtomicReference&lt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Service</span><span class="params">(ServletRequest req, ServletResponse resp)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 获取要进行因式分解的数值</span></span><br><span class="line">        BigInteger i = extractFromRequest(req);</span><br><span class="line">        <span class="comment">// 上一次已经计算过，直接使用上一次的结果</span></span><br><span class="line">        <span class="keyword">if</span>(i.equals(lastNumber.get())) &#123;</span><br><span class="line">        	encodeIntoResponse(resp, lastFactors.get())</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	<span class="comment">// 计算因式分解</span></span><br><span class="line">        	BigInteger[] factors = factor(i);</span><br><span class="line">        	<span class="comment">// 记录本次的计算结果，以备后续使用</span></span><br><span class="line">        	lastNumber.set(i);</span><br><span class="line">        	lastFactors.set(factors);</span><br><span class="line">        	encodeIntoResponse(resp, factors);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码中使用了原子引用类来修改类中的两个状态，但是UnsafeCachingFactorizer类中存在竞态条件，无法保证线程的安全性；<br>假设我们有线程A和线程B，如果两个线程要因式分解同一个数值，那么我们来分析一些上面代码中的缓存有没有生效。</p>
+<blockquote>
+<p>首先 <code>set()</code> 操作时原子性的，但是无法保证lastNumber和lastFactors同时更新，假如线程A成功的set了lastNumber的值，但在线程A设置lastFactors的值之前，线程B执行了get操作，那么显然线程B将得到一个错误的数值。</p>
+</blockquote>
+<p>显然，线程安全的不变性条件被破坏，此处的不变性条件应该是：lastFactors中缓存的数据应该是lastNumber的因式分解的结果，所以在修改了lastNumber而没有修改lastFactors的值，而其他线程有机会执行，则破坏了不变性条件，所以无法确保线程的安全。</p>
+<p><a id="%E5%86%85%E7%BD%AE%E9%94%81"></a></p>
+<h2 id="内置锁"><a href="#内置锁" class="headerlink" title="内置锁"></a>内置锁</h2><p>Java 通过内置锁机制支持原子性：同步代码块机制<br>同步代码块包括两部分：<code>一个作为锁的对象引用</code>，<code>一个作为有该锁保护的代码块</code>？？？？？？？？？？？？？？（需要后续继续解读）</p>
+<blockquote>
+<p>普通同步方法，锁是当前实例对象 ？？？？？？？？？？？？？？（需要后续继续解读）<br>静态同步方法，锁是当前类的Class对象 ？？？？？？？？？？？？？？（需要后续继续解读）<br>同步代码块，锁是括号中配置的对象 ？？？？？？？？？？？？？？（需要后续继续解读）</p>
+</blockquote>
+<p>由于一次只能有一个线程进入同步代码块，所以内置锁保护的代码块是原子方式执行的。</p>
+<p><strong>使用synchronized保证安全，但该例子性能很差</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 上一次因式分解的数值</span></span><br><span class="line">	<span class="keyword">private</span> BigInteger lastNumber;</span><br><span class="line">	<span class="comment">// 上一次因式分解的结果</span></span><br><span class="line">	<span class="keyword">private</span> BigInteger[] lastFactors;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">Service</span><span class="params">(ServletRequest req, ServletResponse resp)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 获取要进行因式分解的数值</span></span><br><span class="line">		BigInteger i = extractFromRequest(req);</span><br><span class="line">		<span class="comment">// 上一次已经计算过，直接使用上一次的结果</span></span><br><span class="line">		<span class="keyword">if</span>(i.equals(lastNumber.get())) &#123;</span><br><span class="line">			encodeIntoResponse(resp, lastFactors.get())</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 计算因式分解</span></span><br><span class="line">			BigInteger[] factors = factor(i);</span><br><span class="line">			<span class="comment">// 记录本次的计算结果，以备后续使用</span></span><br><span class="line">			lastNumber.set(i);</span><br><span class="line">			lastFactors.set(factors);</span><br><span class="line">			encodeIntoResponse(resp, factors);</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="%E9%87%8D%E5%85%A5"></a></p>
+<h2 id="重入"><a href="#重入" class="headerlink" title="重入"></a>重入</h2><p>每一个锁都会关联一个<code>获取锁计数器</code> 和一个 <code>获取锁的线程</code>，计数器为0表示没有线程获取到锁，当一个线程获取到一个计数器为0的锁时，JVM记录锁的持有者，并且设置计数器值为1，此时其他线程将等待锁的释放，如果同一个线程再次获取锁(<code>重入</code>)，计数器+1，而当线程退出代码块，计数器将会相应递减，当计数器减为0，则释放锁。</p>
+<p>锁的重入：<code>降低多次获取和释放锁的性能损耗</code> <code>避免了某种死锁的发生</code>(如下)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="keyword">extends</span> <span class="title">Widget</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(toString() + <span class="string">": calling doSomething"</span>);</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上述代码中，两次调用 <code>doSomething()</code> 方法都需要获取 <code>Widget</code> 上的锁(<code>或者在同一个类中的一个加锁方法中调用另一个加锁的方法也会发生锁的重入</code>)，如果锁不能重入，则无法调用 <code>super.doSomethis()</code> 因为锁已经被同一个线程获取，所以线程将永远无法获取到锁，避免了这种死锁情况的发生</p>
+</blockquote>
+<p><a id="24-%E7%94%A8%E9%94%81%E6%9D%A5%E4%BF%9D%E6%8A%A4%E7%8A%B6%E6%80%81"></a></p>
+<h1 id="2-4-用锁来保护状态"><a href="#2-4-用锁来保护状态" class="headerlink" title="2.4 用锁来保护状态"></a>2.4 用锁来保护状态</h1><p>对象的内置锁与其状态之间没有内在的关联</p>
+<p>对象的域不一定要通过内置锁来保护</p>
+<blockquote>
+<p>当线程获取到某个对象的锁时，并不能阻止其他线程访问对象，只能阻止其他线程获取锁。</p>
+</blockquote>
+<p>如果在类的每个方法上都加锁，也无法确保复合操作都是 <code>原子性</code> 的，例如 <code>Vector</code> 类;<br>例如下面代码中的 <code>contains()</code> 方法和 <code>add()</code> 方法都是加锁的，当时if代码块中的复合操作并不是原子性的，<br>因为线程A在获取到锁调用用 contains 方法后可能会释放锁，此时如果其他线程获取了锁则结果将不可预知。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VectorTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!vector.contains(element)) &#123;</span><br><span class="line">            vector.add(element);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="25-%E6%B4%BB%E8%B7%83%E6%80%A7%E4%B8%8E%E6%80%A7%E8%83%BD"></a></p>
+<h1 id="2-5-活跃性与性能"><a href="#2-5-活跃性与性能" class="headerlink" title="2.5 活跃性与性能"></a>2.5 活跃性与性能</h1><p>缩小同步代码块的范围，可以既能确保较高的 <code>并发性</code> 又能维护 <code>线程安全性</code>，要确保同步代码块不要太小，而且不要将本应该时原子的操作拆分到多个代码块中，<br>应该尽量将 <code>不影响共享状态</code> 且 <code>执行时间较长</code> 的操作从同步代码块中分离出来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CachedFactorizer</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上一次计算的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GuardedBy</span>(<span class="string">"this"</span>) <span class="keyword">private</span> BigInteger lastNumber;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上一次求出的结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GuardedBy</span>(<span class="string">"this"</span>) <span class="keyword">private</span> BigInteger[] lastFactors;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 请求次数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GuardedBy</span>(<span class="string">"this"</span>) <span class="keyword">private</span> <span class="keyword">long</span> hits;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GuardedBy</span>(<span class="string">"this"</span>) <span class="keyword">private</span> <span class="keyword">long</span> cacheHits;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> </span>&#123;</span><br><span class="line">        BigInteger i = extractFormRequest(servletRequest);</span><br><span class="line">        BigInteger[] factors = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="comment">// 统计请求次数</span></span><br><span class="line">            ++hits;</span><br><span class="line">            <span class="comment">// 如果要计算的数据已经计算过了</span></span><br><span class="line">            <span class="keyword">if</span>(i!=<span class="keyword">null</span> &amp;&amp; i.equals(lastNumber)) &#123;</span><br><span class="line">                ++cacheHits;</span><br><span class="line">                factors = lastFactors.clone();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(factors == <span class="keyword">null</span>) &#123;</span><br><span class="line">            factors = factor(i);</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">                lastNumber = i;</span><br><span class="line">                lastFactors = factors.clone();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        encodeIntoResponse(servletResponse, factors);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当执行时间教程的计算或者无法快速完成的操作时（如网络IO），一定不要持有锁。</p>
+</blockquote>
+<blockquote>
+<p>通常，当实现某个同步策略时，一定不要盲目的为了性能而牺牲简单性（这可能会破坏安全性）</p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://AlanWangBit.github.io/2018/11/13/JavaConcurrencyInPractice2/" title="Java并发编程实战-第二章：线程的安全性" target="_blank" rel="external">http://AlanWangBit.github.io/2018/11/13/JavaConcurrencyInPractice2/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/alanwangbit" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/alanwangbit" target="_blank"><span class="text-dark">Alan Wang</span><small class="ml-1x">A forward programmer</small></a></h3>
+        <div>我爱狂风和烈酒，还有孤独和自由。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom="">
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2018/11/12/LeetCodeSwapNodesInPairs/" title="LeetCode交换链表中相邻的两个元素"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope="" itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/alanwangbit" target="_blank" title="Github" data-toggle="tooltip" data-placement="top"><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle="tooltip" data-placement="top"><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2018 Alan Wang
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

@@ -17,23 +17,23 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>LeetCode交换链表中相邻的两个元素 | Alan</title>
-  <meta name="description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
+  <title>LeetCode判断一个括号字符串是否是合法的 | Alan</title>
+  <meta name="description" content="描述：Valid Parentheses 题目地址 Example:  输入: “{()}[]” -&amp;gt; true输入: “({)}[]” -&amp;gt; false输入: “[]” -&amp;gt; true输入: “” -&amp;gt; true  思路分析: 使用栈结构来处理 栈介绍: 先进后出(FILO), 例如子弹夹, 将元素放入栈中叫压栈 将元素从栈中弹出叫出栈  以字符串 {()} 为例:">
 <meta name="keywords" content="算法,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode交换链表中相邻的两个元素">
-<meta property="og:url" content="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/index.html">
+<meta property="og:title" content="LeetCode判断一个括号字符串是否是合法的">
+<meta property="og:url" content="http://AlanWangBit.github.io/2018/11/18/LeetCode-ValidParentheses/index.html">
 <meta property="og:site_name" content="Alan">
-<meta property="og:description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
+<meta property="og:description" content="描述：Valid Parentheses 题目地址 Example:  输入: “{()}[]” -&amp;gt; true输入: “({)}[]” -&amp;gt; false输入: “[]” -&amp;gt; true输入: “” -&amp;gt; true  思路分析: 使用栈结构来处理 栈介绍: 先进后出(FILO), 例如子弹夹, 将元素放入栈中叫压栈 将元素从栈中弹出叫出栈  以字符串 {()} 为例:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://alanwangbit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png">
-<meta property="og:updated_time" content="2018-11-12T15:58:27.081Z">
+<meta property="og:image" content="http://alanwangbit.github.io/2018/11/18/LeetCode-ValidParentheses/example.png">
+<meta property="og:updated_time" content="2018-11-18T07:36:14.705Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeetCode交换链表中相邻的两个元素">
-<meta name="twitter:description" content="描述：Swap Nodes in Pairs 题目地址 Example:  输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5-&amp;gt;null输出: 2-&amp;gt;1-&amp;gt;4-&amp;gt;3-&amp;gt;5-&amp;gt;null  思路分析: 如下图  curr 为当前正在遍历的元素, 我们称它为 a元素next 当前元素的后面一个元素, 我们称他为 b元素c 元素为当前元素后面的第二个元素p">
-<meta name="twitter:image" content="http://alanwangbit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png">
+<meta name="twitter:title" content="LeetCode判断一个括号字符串是否是合法的">
+<meta name="twitter:description" content="描述：Valid Parentheses 题目地址 Example:  输入: “{()}[]” -&amp;gt; true输入: “({)}[]” -&amp;gt; false输入: “[]” -&amp;gt; true输入: “” -&amp;gt; true  思路分析: 使用栈结构来处理 栈介绍: 先进后出(FILO), 例如子弹夹, 将元素放入栈中叫压栈 将元素从栈中弹出叫出栈  以字符串 {()} 为例:">
+<meta name="twitter:image" content="http://alanwangbit.github.io/2018/11/18/LeetCode-ValidParentheses/example.png">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/index.html">
+  <link rel="canonical" href="http://AlanWangBit.github.io/2018/11/18/LeetCode-ValidParentheses/index.html">
   
     <link rel="alternate" href="/atom.xml" title="Alan" type="application/atom+xml">
   
@@ -275,14 +275,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-LeetCodeSwapNodesInPairs" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <article id="post-LeetCode-ValidParentheses" class="article article-type-post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      LeetCode交换链表中相邻的两个元素
+      LeetCode判断一个括号字符串是否是合法的
     </h1>
   
 
@@ -290,8 +290,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2018/11/12/LeetCodeSwapNodesInPairs/" class="article-date">
-	  <time datetime="2018-11-12T14:59:28.000Z" itemprop="datePublished">2018-11-12</time>
+	<a href="/2018/11/18/LeetCode-ValidParentheses/" class="article-date">
+	  <time datetime="2018-11-18T07:05:26.000Z" itemprop="datePublished">2018-11-18</time>
 	</a>
 </span>
         
@@ -304,7 +304,7 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/12/LeetCodeSwapNodesInPairs/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/11/18/LeetCode-ValidParentheses/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
@@ -312,21 +312,22 @@
       
         <!-- MarkdownTOC autolink="true" autoanchor="false" -->
 <!-- /MarkdownTOC -->
-<p><strong>描述：Swap Nodes in Pairs</strong> <a href="https://leetcode.com/problems/swap-nodes-in-pairs" target="_blank" rel="noopener">题目地址</a><br></p>
+<p><strong>描述：Valid Parentheses</strong> <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="noopener">题目地址</a><br></p>
 <p><strong>Example:</strong></p>
 <blockquote>
-<p><strong>输入:</strong> 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;null<br><strong>输出:</strong> 2-&gt;1-&gt;4-&gt;3-&gt;5-&gt;null</p>
+<p><strong>输入:</strong> “{()}[]” -&gt; true<br><strong>输入:</strong> “({)}[]” -&gt; false<br><strong>输入:</strong> “[]” -&gt; true<br><strong>输入:</strong> “” -&gt; true</p>
 </blockquote>
-<p><strong>思路分析: 如下图</strong></p>
+<p><strong>思路分析: 使用栈结构来处理</strong></p>
+<p><strong>栈介绍:</strong> 先进后出(FILO), 例如子弹夹, 将元素放入栈中叫<code>压栈</code> 将元素从栈中弹出叫<code>出栈</code> <br></p>
+<p>以字符串 <code>{()}</code> 为例: </p>
 <blockquote>
-<p><code>curr</code> 为当前正在遍历的元素, 我们称它为 <code>a元素</code><br><code>next</code> 当前元素的后面一个元素, 我们称他为 <code>b元素</code><br><code>c</code> 元素为当前元素后面的第二个元素<br><code>prev</code> 元素为当前遍历到的元素的前一个元素, 如果当前遍历的为第一个元素，则 <code>prev=null;</code>（前面一部分链表的最后一个节点）</p>
+<p>1, 第一个元素 <code>{</code> 入栈<br>2, 第二个元素 <code>(</code> 判断和<code>栈顶</code>的元素不匹配, 也将其压入栈中<br>3, 第三个元素 <code>)</code> 和<code>栈顶</code>元素匹配, 所以将<code>栈顶</code>元素弹出, 然后栈中只剩下 <code>{</code><br>4, 第四个元素 <code>}</code> 和现在的<code>栈顶</code>元素匹配, 所以也将<code>栈顶</code>元素弹出, 现在为<code>空栈</code><br>5, 返回结果: <code>括号字符串是合法的</code></p>
 </blockquote>
-<blockquote>
-<p>(1), curr.next = next.next; // <code>a元素</code> 的 <code>next</code> 指向 <code>c元素</code><br>(2), next.next = curr; // <code>b元素</code> 的 <code>next</code> 指向 <code>a元素</code><br>(3), prev.next = next; // <code>prev</code> 元素指向 <code>b元素</code>(将链表前面一半的元素和后面的元素链接上)<br>(4), prev = curr; //交换之后，a元素是前面元素的最后一个元素，所以更新 <code>prev</code> 指向 <code>a元素</code><br>(5), curr = curr.next; // 下一次遍历的元素为 <code>a元素</code> 的下一个元素</p>
-</blockquote>
-<p><img src="/2018/11/12/LeetCodeSwapNodesInPairs/listnode.png" alt="listnode"></p>
+<p><img src="/2018/11/18/LeetCode-ValidParentheses/example.png" alt="example"></p>
 <p><strong>代码实现</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alan.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alan.leetcode.utils.ListNodeUtil;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Alan Wang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2018/11/12.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwapNodesInPairs</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode head = ListNodeUtil.generateListNode(<span class="number">7</span>);</span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(curr.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"null"</span>);</span><br><span class="line">        System.out.println(<span class="string">"----------------------开始交换----------------------"</span>);</span><br><span class="line">        SwapNodesInPairsSolution solution = <span class="keyword">new</span> SwapNodesInPairsSolution();</span><br><span class="line">        ListNode listNode = solution.swapPairs(head);</span><br><span class="line"></span><br><span class="line">        ListNode node = listNode;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.print(node.val+<span class="string">"-&gt;"</span>);</span><br><span class="line">            node = node.next;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"null"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 交换链表中相邻的两个元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SwapNodesInPairsSolution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 当前正在遍历的元素</span></span><br><span class="line">        ListNode curr = head;</span><br><span class="line">        <span class="comment">// 当前正在遍历的元素的后一个</span></span><br><span class="line">        ListNode next, prev = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 假设链表为：prev-&gt;a-&gt;b-&gt;c-&gt;null</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">while</span> (curr!=<span class="keyword">null</span> &amp;&amp; curr.next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 获取当前元素的下一个元素</span></span><br><span class="line">            next = curr.next;</span><br><span class="line">            <span class="comment">// 将a的next指向b的next</span></span><br><span class="line">            curr.next = next.next;</span><br><span class="line">            <span class="comment">// 将b的next指向a</span></span><br><span class="line">            next.next = curr;</span><br><span class="line">            <span class="comment">// 将a前面一个元素的next指向b</span></span><br><span class="line">            <span class="keyword">if</span>(prev!=<span class="keyword">null</span>) &#123;</span><br><span class="line">                prev.next = next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                head = next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// prev 指向元素a</span></span><br><span class="line">            prev = curr;</span><br><span class="line">            <span class="comment">// 元素a往后移动一位</span></span><br><span class="line">            curr = curr.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.alan.leetcode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 判断一个字符串括号是否是合法的</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Alan Wang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/11/18 14:43</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidParentheses</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Solution solution = <span class="keyword">new</span> Solution();</span><br><span class="line">        <span class="keyword">boolean</span> result = solution.isValid(<span class="string">"[(&#123;)]"</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Map&lt;Character, Character&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        map.put(<span class="string">')'</span>, <span class="string">'('</span>);</span><br><span class="line">        map.put(<span class="string">']'</span>, <span class="string">'['</span>);</span><br><span class="line">        map.put(<span class="string">'&#125;'</span>, <span class="string">'&#123;'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 字符串转换为字符数组</span></span><br><span class="line">        <span class="keyword">char</span>[] chars = s.toCharArray();</span><br><span class="line">        Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> aChar : chars) &#123;</span><br><span class="line">            <span class="comment">// 查看栈顶的是否匹配</span></span><br><span class="line">            <span class="keyword">if</span> (stack.empty()) &#123;</span><br><span class="line">                stack.push(aChar);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (map.get(aChar) != <span class="keyword">null</span> &amp;&amp; map.get(aChar).equals(stack.peek())) &#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                stack.push(aChar);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chars.length &gt; <span class="number">0</span> &amp;&amp; stack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/AlanWangBit/Java-Advanced/blob/master/java-algorithm/src/main/java/com/alan/leetcode/ValidParentheses.java" target="_blank" rel="noopener">源码地址</a></p>
+
       
     </div>
     <div class="article-footer">
@@ -335,7 +336,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/" title="LeetCode交换链表中相邻的两个元素" target="_blank" rel="external">http://AlanWangBit.github.io/2018/11/12/LeetCodeSwapNodesInPairs/</a>
+      <a href="http://AlanWangBit.github.io/2018/11/18/LeetCode-ValidParentheses/" title="LeetCode判断一个括号字符串是否是合法的" target="_blank" rel="external">http://AlanWangBit.github.io/2018/11/18/LeetCode-ValidParentheses/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -381,13 +382,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2018/11/13/JavaConcurrencyInPractice2/" title="Java并发编程实战-第二章：线程的安全性"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2018/11/11/leetCode-reverseLinkedlist/" title="LeetCode反转链表"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2018/11/13/JavaConcurrencyInPractice2/" title="Java并发编程实战-第二章：线程的安全性"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

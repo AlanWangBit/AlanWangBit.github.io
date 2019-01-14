@@ -424,22 +424,22 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <!-- MarkdownTOC autolink="false" autoanchor="false" -->
+                <!-- MarkdownTOC autolink="true" autoanchor="false" -->
 <ul>
-<li>2.1 什么是线程安全</li>
-<li>2.2 原子性<ul>
-<li>竞态条件</li>
-<li>示例：延迟初始化中的竞态条件</li>
-<li>复合操作</li>
+<li><a href="#21-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">2.1 什么是线程安全</a></li>
+<li><a href="#22-%E5%8E%9F%E5%AD%90%E6%80%A7">2.2 原子性</a><ul>
+<li><a href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">竞态条件</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B%EF%BC%9A%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%AD%E7%9A%84%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">示例：延迟初始化中的竞态条件</a></li>
+<li><a href="#%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C">复合操作</a></li>
 </ul>
 </li>
-<li>2.3 加锁机制<ul>
-<li>内置锁</li>
-<li>重入</li>
+<li><a href="#23-%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6">2.3 加锁机制</a><ul>
+<li><a href="#%E5%86%85%E7%BD%AE%E9%94%81">内置锁</a></li>
+<li><a href="#%E9%87%8D%E5%85%A5">重入</a></li>
 </ul>
 </li>
-<li>2.4 用锁来保护状态</li>
-<li>2.5 活跃性与性能</li>
+<li><a href="#24-%E7%94%A8%E9%94%81%E6%9D%A5%E4%BF%9D%E6%8A%A4%E7%8A%B6%E6%80%81">2.4 用锁来保护状态</a></li>
+<li><a href="#25-%E6%B4%BB%E8%B7%83%E6%80%A7%E4%B8%8E%E6%80%A7%E8%83%BD">2.5 活跃性与性能</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 <h1 id="2-1-什么是线程安全"><a href="#2-1-什么是线程安全" class="headerlink" title="2.1 什么是线程安全"></a>2.1 什么是线程安全</h1><p><code>定义：</code> 当多个线程访问某个类时，这个类始终都能表现出正确的行为，则称该类是<code>线程安全的</code>。</p>
@@ -654,123 +654,6 @@
             <hr>
 
             
-            <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.88rem;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff;
-        background-color: #22AB38;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff;
-        background-color: #019FE8;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close"><i class="fa fa-close"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs">
-                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
-                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                    </ul>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('#reward .reward-link').on('click', function () {
-            $('#rewardModal').openModal();
-        });
-
-        $('#rewardModal .close').on('click', function () {
-            $('#rewardModal').closeModal();
-        });
-    });
-</script>
-            
 
             <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
 
@@ -785,7 +668,7 @@
             <div class="reprint">
                 <p>
                     <span class="reprint-tip">转载请注明: </span>
-                    <a href="localhost:4000" class="b-link-green">AlanWang</a>
+                    <a href="https://AlanWangBit.github.io" class="b-link-green">AlanWang</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
                     <a href="/2018/11/13/JavaConcurrencyInPractice2/" class="b-link-green">Java并发编程实战-第二章：线程的安全性</a>
                 </p>
@@ -832,11 +715,31 @@ Example:
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Alan Wang
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                    数据结构与算法
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
+                    </a>
+                    
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/Leetcode/" target="_blank">
+                        <span class="chip bg-color">Leetcode</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -868,8 +771,12 @@ Example:
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Alan Wang
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据结构与算法/" class="post-category" target="_blank">
+                                    数据结构与算法
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -883,6 +790,10 @@ Example:
                     
                     <a href="/tags/数据结构/" target="_blank">
                         <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/Leetcode/" target="_blank">
+                        <span class="chip bg-color">Leetcode</span>
                     </a>
                     
                 </div>
